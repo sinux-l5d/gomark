@@ -20,12 +20,13 @@ func (*LinkParser) Match(tokens []*tokenizer.Token) (ast.Node, int) {
 		return nil, 0
 	}
 
-	textTokens := []*tokenizer.Token{}
-	for _, token := range matchedTokens[1:] {
-		if token.Type == tokenizer.RightSquareBracket {
-			break
-		}
-		textTokens = append(textTokens, token)
+	rightSquareBracketIndex := tokenizer.FindUnescaped(matchedTokens[1:], tokenizer.RightSquareBracket)
+	if rightSquareBracketIndex == -1 {
+		return nil, 0
+	}
+	textTokens := matchedTokens[1 : rightSquareBracketIndex+1]
+	if tokenizer.FindUnescaped(textTokens, tokenizer.LeftSquareBracket) != -1 {
+		return nil, 0
 	}
 	if len(textTokens)+4 >= len(matchedTokens) {
 		return nil, 0
@@ -48,8 +49,13 @@ func (*LinkParser) Match(tokens []*tokenizer.Token) (ast.Node, int) {
 		return nil, 0
 	}
 
+	textNodes, err := ParseInlineWithParsers(textTokens, []InlineParser{NewEscapingCharacterParser(), NewTextParser()})
+	if err != nil {
+		return nil, 0
+	}
+
 	return &ast.Link{
-		Text: tokenizer.Stringify(textTokens),
+		Text: textNodes,
 		URL:  tokenizer.Stringify(urlTokens),
 	}, 4 + len(textTokens) + len(urlTokens)
 }

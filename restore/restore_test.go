@@ -30,7 +30,7 @@ func TestRestore(t *testing.T) {
 				&ast.Paragraph{
 					Children: []ast.Node{
 						&ast.Text{
-							Content: "Here: ",
+							Content: "Code: ",
 						},
 						&ast.Code{
 							Content: "Hello world!",
@@ -38,7 +38,7 @@ func TestRestore(t *testing.T) {
 					},
 				},
 			},
-			rawText: "Here: `Hello world!`",
+			rawText: "Code: `Hello world!`",
 		},
 	}
 

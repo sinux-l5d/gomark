@@ -17,8 +17,8 @@ func TestLinkParser(t *testing.T) {
 		{
 			text: "[](https://example.com)",
 			node: &ast.Link{
-				Text: []ast.Node{},
-				URL:  "https://example.com",
+				Content: []ast.Node{},
+				URL:     "https://example.com",
 			},
 		},
 		{
@@ -32,29 +32,29 @@ func TestLinkParser(t *testing.T) {
 		{
 			text: "[your/slash](https://example.com)",
 			node: &ast.Link{
-				Text: []ast.Node{&ast.Text{Content: "your/slash"}},
-				URL:  "https://example.com",
+				Content: []ast.Node{&ast.Text{Content: "your/slash"}},
+				URL:     "https://example.com",
 			},
 		},
 		{
 			text: "[hello world](https://example.com)",
 			node: &ast.Link{
-				Text: []ast.Node{&ast.Text{Content: "hello world"}},
-				URL:  "https://example.com",
+				Content: []ast.Node{&ast.Text{Content: "hello world"}},
+				URL:     "https://example.com",
 			},
 		},
 		{
 			text: "[hello world](https://example.com)",
 			node: &ast.Link{
-				Text: []ast.Node{&ast.Text{Content: "hello world"}},
-				URL:  "https://example.com",
+				Content: []ast.Node{&ast.Text{Content: "hello world"}},
+				URL:     "https://example.com",
 			},
 		},
 		{
 			text: `[\[link\]](https://example.com)`,
 			node: &ast.Link{
-				Text: []ast.Node{&ast.EscapingCharacter{Symbol: "["}, &ast.Text{Content: `link`}, &ast.EscapingCharacter{Symbol: "]"}},
-				URL:  "https://example.com",
+				Content: []ast.Node{&ast.EscapingCharacter{Symbol: "["}, &ast.Text{Content: `link`}, &ast.EscapingCharacter{Symbol: "]"}},
+				URL:     "https://example.com",
 			},
 		},
 	}

@@ -109,8 +109,8 @@ func (n *Image) Restore() string {
 type Link struct {
 	BaseInline
 
-	Text []Node
-	URL  string
+	Content []Node
+	URL     string
 }
 
 func (*Link) Type() NodeType {
@@ -118,11 +118,11 @@ func (*Link) Type() NodeType {
 }
 
 func (n *Link) Restore() string {
-	text := ""
-	for _, child := range n.Text {
-		text += child.Restore()
+	content := ""
+	for _, child := range n.Content {
+		content += child.Restore()
 	}
-	return fmt.Sprintf("[%s](%s)", text, n.URL)
+	return fmt.Sprintf("[%s](%s)", content, n.URL)
 }
 
 type AutoLink struct {

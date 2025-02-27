@@ -277,7 +277,7 @@ func (r *HTMLRenderer) renderLink(node *ast.Link) {
 	r.output.WriteString(`<a href="`)
 	r.output.WriteString(node.URL)
 	r.output.WriteString(`">`)
-	r.RenderNodes(node.Text)
+	r.RenderNodes(node.Content)
 	r.output.WriteString("</a>")
 }
 

@@ -197,7 +197,7 @@ func (r *StringRenderer) renderBold(node *ast.Bold) {
 }
 
 func (r *StringRenderer) renderItalic(node *ast.Italic) {
-	r.output.WriteString(node.Content)
+	r.RenderNodes(node.Children)
 }
 
 func (r *StringRenderer) renderBoldItalic(node *ast.BoldItalic) {

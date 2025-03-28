@@ -48,8 +48,8 @@ type Italic struct {
 	BaseInline
 
 	// Symbol is "*" or "_".
-	Symbol  string
-	Content string
+	Symbol   string
+	Children []Node
 }
 
 func (*Italic) Type() NodeType {
@@ -57,7 +57,11 @@ func (*Italic) Type() NodeType {
 }
 
 func (n *Italic) Restore() string {
-	return fmt.Sprintf("%s%s%s", n.Symbol, n.Content, n.Symbol)
+	content := ""
+	for _, child := range n.Children {
+		content += child.Restore()
+	}
+	return fmt.Sprintf("%s%s%s", n.Symbol, content, n.Symbol)
 }
 
 type BoldItalic struct {

@@ -20,7 +20,7 @@ func (*ItalicParser) Match(tokens []*tokenizer.Token) (ast.Node, int) {
 	}
 
 	prefixTokens := matchedTokens[:1]
-	if prefixTokens[0].Type != tokenizer.Asterisk {
+	if prefixTokens[0].Type != tokenizer.Asterisk && prefixTokens[0].Type != tokenizer.Underscore {
 		return nil, 0
 	}
 	prefixTokenType := prefixTokens[0].Type
@@ -37,8 +37,13 @@ func (*ItalicParser) Match(tokens []*tokenizer.Token) (ast.Node, int) {
 		return nil, 0
 	}
 
+	children, err := ParseInlineWithParsers(contentTokens, []InlineParser{NewLinkParser(), NewTextParser()})
+	if err != nil || len(children) == 0 {
+		return nil, 0
+	}
+
 	return &ast.Italic{
-		Symbol:  prefixTokenType,
-		Content: tokenizer.Stringify(contentTokens),
+		Symbol:   prefixTokenType,
+		Children: children,
 	}, len(contentTokens) + 2
 }

@@ -21,22 +21,83 @@ func TestItalicParser(t *testing.T) {
 		{
 			text: "*Hello*",
 			node: &ast.Italic{
-				Symbol:  "*",
-				Content: "Hello",
+				Symbol: "*",
+				Children: []ast.Node{
+					&ast.Text{
+						Content: "Hello",
+					},
+				},
 			},
 		},
 		{
 			text: "* Hello *",
 			node: &ast.Italic{
-				Symbol:  "*",
-				Content: " Hello ",
+				Symbol: "*",
+				Children: []ast.Node{
+					&ast.Text{
+						Content: " Hello ",
+					},
+				},
 			},
 		},
 		{
 			text: "*1* Hello * *",
 			node: &ast.Italic{
-				Symbol:  "*",
-				Content: "1",
+				Symbol: "*",
+				Children: []ast.Node{
+					&ast.Text{
+						Content: "1",
+					},
+				},
+			},
+		},
+		{
+			text: "_Hello_",
+			node: &ast.Italic{
+				Symbol: "_",
+				Children: []ast.Node{
+					&ast.Text{
+						Content: "Hello",
+					},
+				},
+			},
+		},
+		{
+			text: "_ Hello _",
+			node: &ast.Italic{
+				Symbol: "_",
+				Children: []ast.Node{
+					&ast.Text{
+						Content: " Hello ",
+					},
+				},
+			},
+		},
+		{
+			text: "_1_ Hello _ _",
+			node: &ast.Italic{
+				Symbol: "_",
+				Children: []ast.Node{
+					&ast.Text{
+						Content: "1",
+					},
+				},
+			},
+		},
+		{
+			text: "*[Hello](https://example.com)*",
+			node: &ast.Italic{
+				Symbol: "*",
+				Children: []ast.Node{
+					&ast.Link{
+						Content: []ast.Node{
+							&ast.Text{
+								Content: "Hello",
+							},
+						},
+						URL: "https://example.com",
+					},
+				},
 			},
 		},
 	}

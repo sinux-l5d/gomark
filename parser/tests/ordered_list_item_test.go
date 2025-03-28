@@ -55,8 +55,12 @@ func TestOrderedListItemParser(t *testing.T) {
 						Content: "Hello ",
 					},
 					&ast.Italic{
-						Symbol:  "*",
-						Content: "World",
+						Symbol: "*",
+						Children: []ast.Node{
+							&ast.Text{
+								Content: "World",
+							},
+						},
 					},
 				},
 			},

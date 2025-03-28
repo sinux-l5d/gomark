@@ -249,7 +249,7 @@ func (r *HTMLRenderer) renderBold(node *ast.Bold) {
 
 func (r *HTMLRenderer) renderItalic(node *ast.Italic) {
 	r.output.WriteString("<em>")
-	r.output.WriteString(node.Content)
+	r.RenderNodes(node.Children)
 	r.output.WriteString("</em>")
 }
 

@@ -52,6 +52,36 @@ func TestBoldParser(t *testing.T) {
 			text: "* * Hello **",
 			node: nil,
 		},
+		{
+			text: "__Hello__",
+			node: &ast.Bold{
+				Symbol: "_",
+				Children: []ast.Node{
+					&ast.Text{
+						Content: "Hello",
+					},
+				},
+			},
+		},
+		{
+			text: "__ Hello __",
+			node: &ast.Bold{
+				Symbol: "_",
+				Children: []ast.Node{
+					&ast.Text{
+						Content: " Hello ",
+					},
+				},
+			},
+		},
+		{
+			text: "__ Hello _ _",
+			node: nil,
+		},
+		{
+			text: "_ _ Hello __",
+			node: nil,
+		},
 	}
 
 	for _, test := range tests {

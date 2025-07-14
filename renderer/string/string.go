@@ -3,6 +3,7 @@ package string
 import (
 	"bytes"
 	"fmt"
+	"strings"
 
 	"github.com/usememos/gomark/ast"
 )
@@ -71,6 +72,8 @@ func (r *StringRenderer) RenderNode(node ast.Node) {
 		r.renderAutoLink(n)
 	case *ast.Tag:
 		r.renderTag(n)
+	case *ast.Function:
+		r.renderFunction(n)
 	case *ast.Strikethrough:
 		r.renderStrikethrough(n)
 	case *ast.EscapingCharacter:
@@ -221,6 +224,14 @@ func (r *StringRenderer) renderAutoLink(node *ast.AutoLink) {
 func (r *StringRenderer) renderTag(node *ast.Tag) {
 	r.output.WriteString(`#`)
 	r.output.WriteString(node.Content)
+}
+
+func (r *StringRenderer) renderFunction(node *ast.Function) {
+	r.output.WriteString("!")
+	r.output.WriteString(node.Name)
+	r.output.WriteString("(")
+	r.output.WriteString(strings.Join(node.Params, ","))
+	r.output.WriteString(")")
 }
 
 func (r *StringRenderer) renderStrikethrough(node *ast.Strikethrough) {

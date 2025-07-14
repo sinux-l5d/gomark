@@ -55,6 +55,10 @@ func TestHTMLRenderer(t *testing.T) {
 			text:     "- [ ] hello\n- [x] world",
 			expected: `<dl><li><input type="checkbox" disabled />hello</li><br><li><input type="checkbox" checked disabled />world</li></dl>`,
 		},
+		{
+			text:     "this is !due(2025-07-14)",
+			expected: `<p>this is <span>!due(2025-07-14)</span></p>`,
+		},
 	}
 
 	for _, test := range tests {

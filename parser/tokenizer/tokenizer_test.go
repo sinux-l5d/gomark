@@ -70,6 +70,31 @@ func TestTokenize(t *testing.T) {
 				},
 			},
 		},
+		{
+			text: "Hello, world!",
+			tokens: []*Token{
+				{
+					Type:  Text,
+					Value: "Hello",
+				},
+				{
+					Type:  Comma,
+					Value: ",",
+				},
+				{
+					Type:  Space,
+					Value: " ",
+				},
+				{
+					Type:  Text,
+					Value: "world",
+				},
+				{
+					Type:  ExclamationMark,
+					Value: "!",
+				},
+			},
+		},
 	}
 
 	for _, test := range tests {

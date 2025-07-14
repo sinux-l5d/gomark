@@ -40,6 +40,24 @@ func TestRestore(t *testing.T) {
 			},
 			rawText: "Code: `Hello world!`",
 		},
+		{
+			nodes: []ast.Node{
+				&ast.Function{
+					Name:   "test",
+					Params: []string{"hello", " world"},
+				},
+			},
+			rawText: "!test(hello, world)",
+		},
+		{
+			nodes: []ast.Node{
+				&ast.Function{
+					Name:   "test",
+					Params: []string{},
+				},
+			},
+			rawText: "!test",
+		},
 	}
 
 	for _, test := range tests {

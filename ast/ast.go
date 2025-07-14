@@ -39,6 +39,7 @@ const (
 	ReferencedContentNode NodeType = "REFERENCED_CONTENT"
 	SpoilerNode           NodeType = "SPOILER"
 	HTMLElementNode       NodeType = "HTML_ELEMENT"
+	FunctionNode          NodeType = "FUNCTION"
 )
 
 type Node interface {

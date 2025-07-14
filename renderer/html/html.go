@@ -3,6 +3,7 @@ package html
 import (
 	"bytes"
 	"fmt"
+	"strings"
 
 	"github.com/usememos/gomark/ast"
 )
@@ -71,6 +72,8 @@ func (r *HTMLRenderer) RenderNode(node ast.Node) {
 		r.renderAutoLink(n)
 	case *ast.Tag:
 		r.renderTag(n)
+	case *ast.Function:
+		r.renderFunction(n)
 	case *ast.Strikethrough:
 		r.renderStrikethrough(n)
 	case *ast.EscapingCharacter:
@@ -293,6 +296,16 @@ func (r *HTMLRenderer) renderTag(node *ast.Tag) {
 	r.output.WriteString(`<span>`)
 	r.output.WriteString(`#`)
 	r.output.WriteString(node.Content)
+	r.output.WriteString(`</span>`)
+}
+
+func (r *HTMLRenderer) renderFunction(node *ast.Function) {
+	r.output.WriteString(`<span>`)
+	r.output.WriteString(`!`)
+	r.output.WriteString(node.Name)
+	r.output.WriteString(`(`)
+	r.output.WriteString(strings.Join(node.Params, ","))
+	r.output.WriteString(`)`)
 	r.output.WriteString(`</span>`)
 }
 

@@ -30,6 +30,10 @@ func TestStringRender(t *testing.T) {
 			text:     "Test\n1. Hello\n2. World",
 			expected: "Test\n1. Hello\n2. World",
 		},
+		{
+			text:     "!test(hello)",
+			expected: "!test(hello)\n",
+		},
 	}
 
 	for _, test := range tests {

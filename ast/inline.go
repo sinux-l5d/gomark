@@ -301,3 +301,22 @@ func (n *HTMLElement) Restore() string {
 	}
 	return fmt.Sprintf("<%s%s />", n.TagName, attrStr)
 }
+
+type Function struct {
+	BaseInline
+
+	Name   string
+	Params []string
+}
+
+func (*Function) Type() NodeType {
+	return FunctionNode
+}
+
+func (n *Function) Restore() string {
+	params := ""
+	if len(n.Params) > 0 {
+		params = fmt.Sprintf("(%s)", strings.Join(n.Params, ","))
+	}
+	return fmt.Sprintf("!%s%s", n.Name, params)
+}
